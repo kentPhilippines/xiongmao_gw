@@ -226,4 +226,16 @@ public class OrderServiceImpl extends PayOrderService implements OrderService  {
 		this.payType = accountFee.getChannelProduct();
 		return dealOrder();
 	}
+	@Override
+	public boolean updataOrderEr(String orderId) {
+		DealOrder record = new DealOrder();
+		DealOrderExample example = new DealOrderExample();
+		com.pay.gateway.entity.DealOrderExample.Criteria criteriaDealOrder = example.createCriteria();
+		criteriaDealOrder.andOrderIdEqualTo(orderId);
+		DealOrder dealOrder = new DealOrder();
+		dealOrder.setOrderStatus(Common.ORDERDEASTATUS_ER);
+		dealOrder.setCreateTime(null);
+		int updateByExampleSelective = dealOrderDao.updateByExampleSelective(dealOrder, example);
+		return updateByExampleSelective > 0 && updateByExampleSelective < 2;
+	}
 }

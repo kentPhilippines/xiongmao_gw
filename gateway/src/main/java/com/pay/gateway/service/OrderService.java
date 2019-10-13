@@ -83,4 +83,11 @@ public interface OrderService {
 	 */
 	boolean createOrderNoBankCaed(String orderId, String dealAmount);
 
+	/**
+	 * <p>根据订单号修改订单状态为失败</p>
+	 * @param orderId
+	 * @return
+	 */
+	boolean updataOrderEr(String orderId);
+
 }

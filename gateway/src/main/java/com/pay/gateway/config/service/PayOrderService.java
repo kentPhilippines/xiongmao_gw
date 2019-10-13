@@ -25,7 +25,7 @@ import cn.hutool.core.util.StrUtil;
 public abstract class PayOrderService implements PayService{
 	Logger log = LoggerFactory.getLogger(PayOrderService.class);
 	@Autowired
-	OrderService OrderServiceImpl;
+	OrderService orderServiceImpl;
 	protected String tradeId;//外部订单号
 	protected BigDecimal amount;//交易金额
 	protected String appid;//商户号
@@ -70,7 +70,7 @@ public abstract class PayOrderService implements PayService{
 		dealOrder.setDealChannel(dealChannel);
 		dealOrder.setRetain1(notfty);
 		log.info("---【订单填充后的数据："+dealOrder.toString()+"】------");
-		Boolean  falg = OrderServiceImpl.addDealOrder(dealOrder);
+		Boolean  falg = orderServiceImpl.addDealOrder(dealOrder);
 		return falg;
 	}
 }

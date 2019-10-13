@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pay.gateway.channel.H5ailiPay.contorller.NotfiyContorller;
 import com.pay.gateway.entity.Account;
 import com.pay.gateway.entity.AccountInfo;
 import com.pay.gateway.entity.DealOrder;
@@ -50,7 +49,7 @@ public class NotifyUtil {
 		Account account = accountServiceImpl.findAccountByAppId(dealOrder.getOrderAccount());
 		AccountInfo accountInfo = accountServiceImpl.findAccountInfoByAppId(dealOrder.getOrderAccount());
 		String appid =   account.getAccountId();
-		String secretKey = accountInfo.getAppKey(); 
+		String secretKey = accountInfo.getAppDesKey(); 
 		String orderNo = dealOrder.getOrderId(); // 本系統訂單號
 		String externalOrderId = dealOrder.getExternalOrderId(); // 外部訂單號  (就是下有商戶的訂單號)
 		String amount = dealOrder.getDealAmount().toString();

@@ -3,8 +3,8 @@ package com.pay.gateway.config.common;
 public final class Common {
 	public static final String CODING = "UTF-8";//账户未登录错误
 	public static final String DATATYPE = "yyyyMMddHHmmss";//账户未登录错误
-	public static final String OPENTYPE_URL = "1";//账户未登录错误
-	public static final String OPENTYPE_HTML = "2";//账户未登录错误
+	public static final String OPENTYPE_URL = "1";//url打开方式
+	public static final String OPENTYPE_HTML = "2";//浏览器打开方式
 	
 	
 	/**

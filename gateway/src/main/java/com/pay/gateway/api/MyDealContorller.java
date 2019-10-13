@@ -68,14 +68,14 @@ public class MyDealContorller {
 	@Autowired
 	RequestUtil requestUtil;
 	Logger log = LoggerFactory.getLogger(MyDealContorller.class);
-	@RequestMapping("/payTo")
+	@RequestMapping("/payGBOO")
 	@Transactional
 	public void payToCard(Deal deal ,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ResultDeal resultDeal = new ResultDeal();
 		boolean validationAll = requestUtil.validationAll(request, response,resultDeal);
 		if(!validationAll)  
 			return; 
-		log.info("--------------【进入支付宝H5模式交易处理】------------------------");
+		log.info("--------------【进入交易处理】------------------------");
 		 String appid = request.getParameter("appid");
 		String orderid = request.getParameter("orderid");
 		String notifyurl = request.getParameter("notifyurl");
@@ -176,8 +176,6 @@ public class MyDealContorller {
 			log.info("状态响应码："+resultDeal.toString());
 			if(!Common.RESPONSE_STATUS_SU.equalsIgnoreCase(resultDeal.getCod())) {
 				log.info("------------------------------【14004:交易失败"+resultDeal.getMsg()+"】------------------------------");
-				resultDeal.setCod(Common.COD_14004);
-				resultDeal.setMsg(Common.MSG_14004);
 				response.getWriter().write(JSONUtil.toJsonPrettyStr(resultDeal));
 				return;
 			}
