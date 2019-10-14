@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.pay.gateway.channel.H5ailiPay.service.BankCardService;
 import com.pay.gateway.config.common.Common;
-import com.pay.gateway.entity.Account;
 import com.pay.gateway.entity.BankCard;
 import com.pay.gateway.entity.BankCardExample;
 import com.pay.gateway.entity.BankCardExample.Criteria;
@@ -20,7 +19,6 @@ import com.pay.gateway.entity.UserExample;
 import com.pay.gateway.mapper.BankCardMapper;
 import com.pay.gateway.mapper.BankCardRunMapper;
 import com.pay.gateway.mapper.UserMapper;
-import com.pay.gateway.util.OrderUtil;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
