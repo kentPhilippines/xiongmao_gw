@@ -35,7 +35,7 @@ public class NotifyUtil {
 	 * @param flag			成功或失敗的通知
 	 */
 	public void sendMsg(String OrderIdAll,boolean flag) {
-		log.info("============【準備向下游商戶發送通知】================");
+		log.info("============【准备向下游商戶发送通知】================");
 		DealOrder dealOrder = orderServiceImpl.findOrderByOrderAll(OrderIdAll);
 		String url = dealOrder.getRetain1();
 		Account account = accountServiceImpl.findAccountByAppId(dealOrder.getOrderAccount());
@@ -54,9 +54,9 @@ public class NotifyUtil {
 		msg.put("amount", amount);
 		msg.put("externalOrderId", externalOrderId);
 		msg.put("cod",cod);
-		msg.put("body",flag?"交易成功":"交易失敗");
+		msg.put("body",flag?"交易成功":"交易失败");
 		msg.put("sign", sign);
-		log.info("============【发送通知的參數情況："+msg.toString()+"】================");
+		log.info("============【发送通知的参数情況："+msg.toString()+"】================");
 		log.info("============【发送通知的地址："+url.toString()+"】================");
 		send(url,msg);
 	}
