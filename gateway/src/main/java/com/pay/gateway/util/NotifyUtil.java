@@ -1,13 +1,7 @@
 package com.pay.gateway.util;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +17,6 @@ import com.pay.gateway.service.AccountService;
 import com.pay.gateway.service.OrderService;
 
 import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 
 /**
  * <p>給下游商戶發送通知</p>
@@ -53,13 +45,15 @@ public class NotifyUtil {
 		String orderNo = dealOrder.getOrderId(); // 本系統訂單號
 		String externalOrderId = dealOrder.getExternalOrderId(); // 外部訂單號  (就是下有商戶的訂單號)
 		String amount = dealOrder.getDealAmount().toString();
-		String sign = appid + orderNo + amount + externalOrderId + secretKey;
+		String cod = flag?"Y":"N";
+		String sign = appid + orderNo + amount + externalOrderId +cod+ secretKey;
 		sign =  md5(sign);
 		Map<String, Object> msg = new HashMap<String, Object>();
 		msg.put("appid", appid);
 		msg.put("orderNo", orderNo);
 		msg.put("amount", amount);
 		msg.put("externalOrderId", externalOrderId);
+		msg.put("cod",cod);
 		msg.put("body",flag?"交易成功":"交易失敗");
 		msg.put("sign", sign);
 		log.info("============【发送通知的參數情況："+msg.toString()+"】================");
