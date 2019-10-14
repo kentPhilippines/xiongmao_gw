@@ -163,7 +163,7 @@
                         content: '请打开手机飞行模式后再点击立即支付。若启用飞行模式后没有断开WIFI请先暂时关闭WIFI'
                     });
                 } else {
-                    layer.confirm('<div style="color:red; font-size:18px">跳转后请关闭飞行模式!<br /><br />跳转后请关闭飞行模式!<br /><br />跳转后请关闭飞行模式!', {
+                    layer.confirm('<div style="color:red; font-size:18px">进入支付页面请关闭飞行模式!<br /><br />进入支付页面请关闭飞行模式!<br /><br />进入支付页面请关闭飞行模式!', {
                         icon: 1,
                         title: '充值提示',
                         btn: ['我知道了'] //按钮
