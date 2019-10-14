@@ -60,7 +60,6 @@ public class NotifyUtil {
 		log.info("============【发送通知的地址："+url.toString()+"】================");
 		send(url,msg);
 	}
-	
 	/**
 	 * <p>發送通知</p>
 	 * @param url			發送通知的地址

@@ -55,11 +55,11 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 			UserAccount userAccount  = userAccountServiceImpl.findUserByAccount(dealOrder.getOrderAccount());
 			if(StrUtil.isNotBlank(userAccount.getUserId())) {
 				User user = userServiceImpl.findUserByuserId(userAccount.getUserId());
-				if(StrUtil.isBlank(user.getRetain3())) {
+				if(StrUtil.isBlank(user.getRetain4())) {
 					log.info("【当前账户不存在代理商】");
 				}else {
 					log.info("【当前账号存在代理商】");
-					User agent = userServiceImpl.findUserByuserId(user.getRetain3());//代理商
+					User agent = userServiceImpl.findUserByuserId(user.getRetain4());//代理商
 					String fee = agent.getRetain1();//代理商费率
 					if(StrUtil.isNotBlank(fee)) {
 						String money = agent.getRetain3();//代理商当前金额
