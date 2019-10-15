@@ -68,7 +68,7 @@ public class MyDealContorller {
 	@Autowired
 	RequestUtil requestUtil;
 	Logger log = LoggerFactory.getLogger(MyDealContorller.class);
-	@RequestMapping("/payGBOO")
+	@RequestMapping("/payTo")
 	@Transactional
 	public void payToCard(Deal deal ,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ResultDeal resultDeal = new ResultDeal();

@@ -11,9 +11,11 @@ public static void main(String[] args) {
 		String md5 = md5(string);
 		String md52 = md52(string);
 		if(md5.equals(md52)) {
+			System.out.println("加密字符串："+string);
 			System.out.println("正规加密方案："+md5);
 			System.out.println("简便加密方案："+md52);
 		}else {
+			System.out.println("加密字符串："+string);
 			System.out.println("正规加密方案："+md5);
 			System.out.println("简便加密方案："+md52);
 			return;
