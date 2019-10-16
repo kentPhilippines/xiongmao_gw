@@ -172,7 +172,7 @@
                     <property name="useActualColumnNames" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>
             </table>   
-            <table tableName="system_user" domainObjectName="User"  enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="false"  enableSelectByExample="true"  selectByExampleQueryId="false">
+            <table tableName="system_user_" domainObjectName="User"  enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="false"  enableSelectByExample="true"  selectByExampleQueryId="false">
                     <property name="my.isgen.usekeys" value="true"/>
                     <property name="useActualColumnNames" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>

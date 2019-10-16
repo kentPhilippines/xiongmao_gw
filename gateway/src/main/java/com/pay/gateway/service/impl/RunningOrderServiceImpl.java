@@ -19,6 +19,7 @@ import com.pay.gateway.service.UserAccountService;
 import com.pay.gateway.service.UserService;
 import com.pay.gateway.util.DealNumber;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 @Service
 public class RunningOrderServiceImpl implements RunningOrderService {
@@ -53,6 +54,7 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 			log.info("【若当前账户存在代理商，则开始计算代理商利润当前账户："+dealOrder.getOrderAccount()+"】");
 			log.info("【通过商户号查找账户号】");
 			UserAccount userAccount  = userAccountServiceImpl.findUserByAccount(dealOrder.getOrderAccount());
+			if(ObjectUtil.isNotNull(userAccount)) {
 			if(StrUtil.isNotBlank(userAccount.getUserId())) {
 				User user = userServiceImpl.findUserByuserId(userAccount.getUserId());
 				if(StrUtil.isBlank(user.getRetain4())) {
@@ -84,6 +86,9 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 						}
 					}
 				}
+				}
+			}else {
+				log.info("【当前交易号未配置账户号】");
 			}
 		}else {
 			log.info("当前流水生成失败，流水金额："+dealOrder.getActualAmount().toString()+"");
