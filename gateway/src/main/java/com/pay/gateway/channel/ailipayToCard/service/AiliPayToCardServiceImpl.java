@@ -2,6 +2,7 @@ package com.pay.gateway.channel.ailipayToCard.service;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +48,9 @@ public class AiliPayToCardServiceImpl extends PayOrderService{
 	public ResultDeal deal(Deal deal, Account account, AccountFee accountFee, OrderAll orderAll) {
 		log.info("===========【本地支付宝处理类--宝转卡简便模式】======");
 		ResultDeal result = new ResultDeal();
-		BigDecimal amount = bankUtil.findDealAmount(new BigDecimal(orderAll.getOrderAmount()));
+		DecimalFormat df = new DecimalFormat(".##");  
+		String format = df.format(new BigDecimal(orderAll.getOrderAmount()));
+		BigDecimal amount = bankUtil.findDealAmount(new BigDecimal(format));
 		String param = "order="+orderAll.getOrderId();
 		param += "|amount="+amount;
 		Map<String, Object> careteParam;

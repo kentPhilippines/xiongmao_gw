@@ -1,6 +1,8 @@
 package com.pay.gateway.service.impl;
 
 import java.math.BigDecimal;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +32,11 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 	UserAccountService userAccountServiceImpl;
 	@Autowired
 	UserService  userServiceImpl;
+	private Lock lock = new ReentrantLock();
 	@Override
-	public boolean createDealRun(DealOrder dealOrder, Integer runStatus) {
+	public synchronized boolean createDealRun(DealOrder dealOrder, Integer runStatus) {
 		log.info("---------进入交易流水处理类，生成交易流水，流水方式为交易金额，当前交易金额为："+dealOrder.getDealAmount()+"，实际到账金额为："+dealOrder.getActualAmount().toString()+"");
+		lock.lock();
 		RunningOrder runBean  = new RunningOrder();
 		runBean.setOrderRunId(DealNumber.GetRunOrder());
 		runBean.setOrderId(dealOrder.getOrderId());
@@ -79,6 +83,7 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 						agentUser.setCreateTime(null);
 						agentUser.setSubmitTime(null);
 						boolean flag1 = userServiceImpl.updataUserById(agent);
+						lock.unlock();
 						if(flag1) {
 							log.info("【当前代理商分润更新成功】");
 						}else {
@@ -93,10 +98,11 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 		}else {
 			log.info("当前流水生成失败，流水金额："+dealOrder.getActualAmount().toString()+"");
 		}
+	
 		return flag;
 	}
 	@Override
-	public boolean createDealRunFee(DealOrder dealOrder, Integer runStatus) {
+	public synchronized boolean createDealRunFee(DealOrder dealOrder, Integer runStatus) {
 		log.info("---------【进入交易流水处理类，生成交易手续费流水，流水方式为交易手续费，当前交易金额为："+dealOrder.getDealAmount()+"，交易手续费金额为："+dealOrder.getDealFee().toString()+"】");
 		RunningOrder runBean  = new RunningOrder();
 		runBean.setOrderRunId(DealNumber.GetRunOrder());
@@ -120,7 +126,7 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 		return flag;
 	}
 	@Override
-	public boolean createMerchantsRun(WithdrawalsOrder order, Integer runStatus) {
+	public synchronized boolean createMerchantsRun(WithdrawalsOrder order, Integer runStatus) {
 		log.info("---------【进入交易流水处理类，生成交易流水，流水方式为代付冻结，当前代付金额为："+ order.getWithdrawalsAmount()+"，实际到账金额为："+order.getActualAmount().toString()+"】");
 		RunningOrder runBean  = new RunningOrder();
 		runBean.setOrderRunId(DealNumber.GetRunOrder());
@@ -143,7 +149,7 @@ public class RunningOrderServiceImpl implements RunningOrderService {
 		return flag;
 	}
 	@Override
-	public boolean createMerchantsFeeRun(WithdrawalsOrder order, Integer runStatus) {
+	public synchronized boolean createMerchantsFeeRun(WithdrawalsOrder order, Integer runStatus) {
 
 		log.info("---------【进入交易流水处理类，生成交易流水，流水方式为代付冻结，当前代付金额为："+ order.getWithdrawalsAmount()+"，实际到账金额为："+order.getActualAmount().toString()+"，代付手续费为："+order.getWithdrawalsFee());
 		RunningOrder runBean  = new RunningOrder();

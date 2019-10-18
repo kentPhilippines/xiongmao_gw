@@ -39,6 +39,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 @Controller
@@ -168,6 +169,7 @@ public class PayContorller {
 		}
 		log.info("=========【交易订单生成失败】============");
 		return null;
+		
 	}
 	
 	

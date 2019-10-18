@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,8 +48,10 @@ public class ToCardPayContorller {
 	BankCardService bankCardServiceImpl;
 	@Autowired
 	SendUtil sendUtil;
+	private Lock lock = new ReentrantLock();
 	@GetMapping("/ailiPayToCard")
 	public String startOrder(Model m,HttpServletRequest request) throws Exception {
+		lock.lock();
 		HashMap<String,String> decryptionParam = sendUtil.decryptionParam(request);
 		String order = decryptionParam.get("order");
 		String amount = decryptionParam.get("amount");
@@ -71,7 +75,9 @@ public class ToCardPayContorller {
 		 /**
 		  * <p>生成交易订单</p>
 		  */
+		 
 		BankCard bankCard = orderServiceImpl.createOrder(order,amount.toString());
+		lock.unlock();
 		String money = bankCard.getDealAmount().toString();
 		String bankMark = bankCard.getRetain3();
 		String bankName = bankCard.getBankName();

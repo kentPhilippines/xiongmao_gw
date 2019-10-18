@@ -28,13 +28,13 @@ public class request {
 	static DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 	public static void main(String[] args) {
 		Map<String, String> map = new HashMap<String, String>();
-		String appDesKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIS67ixkE+CU2jCgxadhiYFuCU9A9qLQK84HIJObgb7extbAFvh1Q81dJ5FPCkOsqU59lL5WZ52jxIC6Ie2HxLsCAwEAAQ==";
-		String url ="http://47.91.218.103:45466/deal/payTo";
-		String appid = "AC1000";
+		String appDesKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJRRze3fbEWB6YaeuU63VOZcxJhBL4LL2q1+BATHA6SDQFi4Xiwhv7RpElpgvv9TWzx7sEiCVVYA2HAGlPM3Yf8CAwEAAQ==";
+		String url ="http://47.244.162.174:45466/deal/payTo";
+		String appid = "AC1004";
 		String orderid = UUID.randomUUID().toString();
 		String applydate = formatter.format(new Date());
 		String notifyurl = "www.baidu.com";
-		String amount = "50000";
+		String amount = "88800";
 		String passcode = "PAY1004";
 		String rsasign = "";
 		String sign = "appid"+appid + "orderid"+orderid + "amount"+amount + appDesKey;
@@ -92,6 +92,8 @@ public class request {
 		}
 		return responseMessage.toString();
 	}
+	
+	
 	public synchronized  static String md5(String params) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -101,6 +103,11 @@ public class request {
             throw new RuntimeException(e);
         }
 	}
+	
+	
+	
+	
+	
 	public static String createParam(Map<String, String> map) {
 		try {
 			if (map == null || map.isEmpty()) {

@@ -100,6 +100,7 @@ public class OrderServiceImpl extends PayOrderService implements OrderService  {
 		this.accountFee = accountFee ;
 		this.notfty = orderAll.getRetain3();
 		List<BankCard> bankList = getBankList();
+		System.out.println("查询银行卡数量："+bankList.size());
 		BankCard findDealBankCard = bankUtil.findDealBankCard(bankList, this.amount, orderAll.getOrderId());
 		if(ObjectUtil.isNull(findDealBankCard)) 
 			throw new OtherErrors("未获取到银行卡");
@@ -125,7 +126,7 @@ public class OrderServiceImpl extends PayOrderService implements OrderService  {
 	 * <p>当前收款卡选取只局限于当前卡片是否满额，当前卡片是否为收款卡两个条件，后期会增加相关算法</p>
 	 * @return
 	 */
-	List<BankCard> getBankList(){
+	synchronized List<BankCard> getBankList(){
 		BankCardExample example = new BankCardExample();
 		com.pay.gateway.entity.BankCardExample.Criteria criteriaB = example.createCriteria();
 		criteriaB.andStatusEqualTo(1);

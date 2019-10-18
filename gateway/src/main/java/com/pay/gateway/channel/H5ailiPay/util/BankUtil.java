@@ -60,7 +60,7 @@ public class BankUtil {
 	 * @return
 	 */
      @Transactional
-	public synchronized BankCard findDealBankCard(List<BankCard> bankList,BigDecimal amount , String orderNo) {
+	public  BankCard findDealBankCard(List<BankCard> bankList,BigDecimal amount , String orderNo) {
     	 log.info("可使用银行卡数量："+bankList.size());
     	 if(bankList.size() == 0) {
     		 return null ;
