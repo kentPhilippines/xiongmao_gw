@@ -105,8 +105,8 @@ public class MyDealContorller {
 		BigDecimal sumDealToDayAmount = account.getSumDealToDayAmount();//当天累计交易额度
 		BigDecimal amount = new BigDecimal(amount1);
 		amount = amount.divide(new BigDecimal(100));
-		if(amount.compareTo(maxDeal) == 1) {
-			log.info("------------------------------【14001:当前交易额度超过该账号最大交易额度，最大交易额度为："+maxDeal+"，当前交易额为："+amount+"】------------------------------");
+		if(amount.compareTo(dayDealAmountMax) == 1) {
+			log.info("------------------------------【14001:当前交易额度超过该账号最大交易额度，最大交易额度为："+dayDealAmountMax+"，当前交易额为："+amount+"】------------------------------");
 			resultDeal.setCod(Common.COD_14001);
 			resultDeal.setMsg(Common.MSG_14001);
 			response.getWriter().write(JSONUtil.toJsonPrettyStr(resultDeal));
@@ -120,10 +120,10 @@ public class MyDealContorller {
 			return;
 		}
 		BigDecimal amountSum = amount.add(sumDealToDayAmount);
-		if(amountSum.compareTo(dayDealAmountMin) == -1 ) {
+		if(amountSum.compareTo(maxDeal) == 1 ) {
 			log.info("------------------------------【14003:当日交易累计已超过该账号最大交易额度，当日累计交易："+sumDealToDayAmount+"，交易额度："+maxDeal+"，当前交易金额："+amount1+"分】------------------------------");
-			resultDeal.setCod(Common.COD_14002);
-			resultDeal.setMsg("当日交易累计已超过该账号最大交易额度，当日累计交易："+sumDealToDayAmount+"，交易额度："+maxDeal+"，当前交易金额："+amount1+"分");
+			resultDeal.setCod(Common.COD_14003);
+			resultDeal.setMsg("当日交易累计已超过该账号最大交易额度，当日累计交易："+amountSum+"，交易额度："+maxDeal+"，当前交易金额："+amount1+"分");
 			response.getWriter().write(JSONUtil.toJsonPrettyStr(resultDeal));
 			return;
 		}
