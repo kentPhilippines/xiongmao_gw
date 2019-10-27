@@ -31,7 +31,7 @@ body {
 .price {
 	margin: 0 0 10px;
 	font-size: 20px;
-	color: #1F1F1F;
+	color: #fff4f4;
 	font-weight: 400;
 }
 .info {
@@ -51,9 +51,8 @@ body {
 		display: block;
 		height: 15vw;
 		margin: 0 auto;
-		background:
-			url(https://t.alipayobjects.com/images/T11rdgXbFkXXXXXXXX.png)
-			no-repeat center;
+		background: url(https://img.alicdn.com/tps/TB17ghmIFXXXXXAXFXXXXXXXXXX.png)
+   no-repeat center;
 		background-size: auto 15vw;
 	}
 	.orderNo {
@@ -68,14 +67,14 @@ body {
 		height: 60vw;
 	}
 	.price {
-		font-size: 4vw;
-		margin-top: -5vw;
+		font-size: 8vw;
+		/* margin-top: -2vw; */
 	}
 	.openBtn {
 		display: block;
 		width: 60vw;
 		height: 12vw;
-		margin: 5vw auto 0;
+		margin: 2vw 19vw 0;
 		font-size: 5vw;
 		font-weight: 700;
 		color: #fff;

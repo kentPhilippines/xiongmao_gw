@@ -8,29 +8,79 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="format-detection" content="telephone=no,email=no,adress=no">
+	<link rel="icon" href="https://i.alipayobjects.com/common/favicon/favicon.ico" type="image/x-icon">
+    <link rel="alternate" media="only screen and(max-width: 640px)" href="https://ds.alipay.com/" />
+<script src="${ctx}/static/jquery/jquery.min.js" type="text/javascript"></script>
 <script
 	src="https://staticjy.oss-cn-hangzhou.aliyuncs.com/clipboard.min.js"></script>
 	<link rel="stylesheet" href="${ctx}/static/css/pc.css" id="layuicss-layer">
 <title>支付宝付款</title> 
 <style type="text/css">
+.logo {
+    float: left;
+    background-image: url(https://img.alicdn.com/tps/TB17ghmIFXXXXXAXFXXXXXXXXXX.png);
+    display: block;
+    width: 70px;
+    height: 25px;
+    position: absolute;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 70px;
+}
+.container1 {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+ .front, .items, .item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
+        .back {
+            bottom: 70px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+            width: 122%;
+    		height: 122%;
+        }
+
+        .items {
+            overflow: visible;
+        }
+
+        .item {
+            background: #fff none no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            display: none;
+        }
+@media (max-width: 768px){
+	.logo {
+		display: none;
+	}
+}
 </style>
 <script>
 	 var newTab = 0;
 	function openWindow() {
 		if (newTab) {
 			newTab = 0;
-			window
-					.open('alipays://platformapi/startapp?appId=66666675&url=http://${url}');
+			window.open('alipays://platformapi/startapp?appId=66666675&url=http://${url}');
 		} else {
 			if (top.location != location) {
 				top.location.href = location.href;
 			}
 			newTab = 1;
-			window.location
-					.replace(
-							'alipays://platformapi/startapp?appId=66666675&url=http://${url}',
-							'');
+			window.location.replace( 'alipays://platformapi/startapp?appId=66666675&url=http://${url}', '');
 		}
 	}
 	/*	function openUC() {
@@ -66,7 +116,21 @@
 	} */
 </script>
 </head>
-<body>
+<body  > 
+
+<div class="back">
+<div class="logo"></div>
+            <div class="items">
+                <div class="item item1"
+                     style="background-image:url(https://img.alicdn.com/tps/TB1h9xxIFXXXXbKXXXXXXXXXXXX.jpg)"></div>
+                <div class="item item2"
+                     style="background-image:url(https://img.alicdn.com/tps/TB1pfG4IFXXXXc6XXXXXXXXXXXX.jpg)"></div>
+                <div class="item item3"
+                     style="background-image:url(https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg)"></div>
+            </div>
+          	
+        </div>
+	<div class="logo"></div>
 	<div class="container">
 		<div class="aliLogo"></div>
 		<p class="orderNo">
@@ -82,8 +146,8 @@
 			请使用<span style="color: #419bf9;">支付宝</span>扫描二维码
 		</p>
 		<img class="pc"
-			src="https://staticjy.oss-cn-hangzhou.aliyuncs.com/example.png"
-			style="position: absolute; top: 40px; right: 200px; width: 400px; height: 530px;" />
+			src="${ctx}/static/css/33.png" 
+			style="position: absolute; top: -87px;right: -483px;width: 1800px;height: 796px;" />
 		</span><span class="pc"><font color=red>请勿擅自修改金额，否则将导致无法上账!!!</font></span>
 		</p>
 		<p class="orderNo">
@@ -92,6 +156,69 @@
 	<script type="text/javascript">
 		new ClipboardJS('#copy_url');
 	</script>
-	<input class="openBtn" type="button" value="点击唤醒支付宝支付"
+	<input class="openBtn" type="button" style="position: absolute;" value="点击唤醒支付宝支付"
 		onclick="openWindow()">
 </body>
+<script src="https://t.alipayobjects.com/images/rmsweb/T19ctgXcRlXXXXXXXX.js"></script>
+<script>
+    var slideEle = slider($('.items'));
+    function slider(elem) {
+        var items = elem.children(),
+                max = items.length - 1,
+                animating = false,
+                currentElem,
+                nextElem,
+                pos = 0;
+
+        sync();
+
+        return {
+            next: function () {
+                move(1);
+            },
+            prev: function () {
+                move(-1);
+            },
+            itemsNum: items && items.length
+        };
+
+        function move(dir) {
+            if (animating) {
+                return;
+            }
+            if (dir > 0 && pos == max || dir < 0 && pos == 0) {
+                if (dir > 0) {
+                    nextElem = elem.children('div').first().remove();
+                    nextElem.hide();
+                    elem.append(nextElem);
+                } else {
+                    nextElem = elem.children('div').last().remove();
+                    nextElem.hide();
+                    elem.prepend(nextElem);
+                }
+                pos -= dir;
+                sync();
+            }
+            animating = true;
+            items = elem.children();
+            currentElem = items[pos + dir];
+            $(currentElem).fadeIn(400, function () {
+                pos += dir;
+                animating = false;
+            });
+        }
+
+        function sync() {
+            items = elem.children();
+            for (var i = 0; i < items.length; ++i) {
+                items[i].style.display = i == pos ? 'block' : '';
+            }
+        }
+
+    }
+    if (slideEle.itemsNum && slideEle.itemsNum > 1) {
+        setInterval(function () {
+            slideEle.next();
+        }, 3000)
+    }
+</script>

@@ -27,11 +27,13 @@ import com.pay.gateway.channel.H5ailiPay.util.QRCodeUtil;
 import com.pay.gateway.config.common.Common;
 import com.pay.gateway.config.redis.RedisUtil;
 import com.pay.gateway.entity.BankCard;
+import com.pay.gateway.entity.DealOrder;
 import com.pay.gateway.service.OrderService;
 import com.pay.gateway.util.SendUtil;
 
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 @Controller
@@ -60,11 +62,12 @@ public class ToCardPayContorller {
 		Date date;
 		date = formatter.parse(data);
 		log.info("================【请求时间戳为："+data+"】===============");
-		boolean expired = DateUtil.isExpired(date,DateField.SECOND,300,new Date());//请求300秒过期
+		/*boolean expired = DateUtil.isExpired(date,DateField.SECOND,300,new Date());//请求300秒过期
 		if(!expired) {
 			log.info("================【订单过期】===============");
 			return "/orderEr";
 		}
+		*/
 		log.info("================【宝转卡简便模式】===============");
 		 String serverName = request.getServerName();
 		 int serverPort = request.getServerPort();
@@ -75,8 +78,15 @@ public class ToCardPayContorller {
 		 /**
 		  * <p>生成交易订单</p>
 		  */
-		 
-		BankCard bankCard = orderServiceImpl.createOrder(order,amount.toString());
+		DealOrder findOrderByOrderAll = orderServiceImpl.findOrderByOrderAll(order);
+		BankCard bankCard = new BankCard();
+		if(ObjectUtil.isNotNull(findOrderByOrderAll)) {
+			String dealCardId = findOrderByOrderAll.getDealCardId();
+			bankCard = bankCardServiceImpl.findBankCardByBankCardId(dealCardId);
+			bankCard.setDealAmount(findOrderByOrderAll.getDealAmount());
+		}else {
+			bankCard = orderServiceImpl.createOrder(order,amount.toString());
+		}
 		lock.unlock();
 		String money = bankCard.getDealAmount().toString();
 		String bankMark = bankCard.getRetain3();

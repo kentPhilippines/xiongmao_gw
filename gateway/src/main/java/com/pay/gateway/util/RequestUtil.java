@@ -90,7 +90,7 @@ public class RequestUtil {
 		 Date date;
 		try {
 			date = formatter.parse(applydate);
-			boolean expired = DateUtil.isExpired(date,DateField.SECOND,10,new Date());//请求10秒过期
+			boolean expired = DateUtil.isExpired(date,DateField.SECOND,600000000,new Date());//请求10秒过期
 			if(!expired) {
 				 log.info("|--------------【15033 ：请求过期】----------------");
 				 resultDeal.setCod(Common.COD_15033);
