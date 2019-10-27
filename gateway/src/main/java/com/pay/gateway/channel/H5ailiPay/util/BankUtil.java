@@ -192,7 +192,8 @@ public class BankUtil {
 	public String findOrderBankCard(BigDecimal amount , String bankPhone) {
 		String key = bankPhone + amount.toString() ;
 		String orderId = (String) bankUtil.redisUtil.get(key);
-		 bankUtil.redisUtil.del(key);//该数据4分钟过期时间
+		bankUtil.redisUtil.del(key);//该数据6分钟过期时间
+		deleteDealAmount(amount);
 		return orderId;
 	}
 	private BigDecimal getAmount(List amountList ,BigDecimal  amount) {

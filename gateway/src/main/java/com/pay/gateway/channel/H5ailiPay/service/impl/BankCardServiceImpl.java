@@ -113,7 +113,7 @@ public class BankCardServiceImpl implements BankCardService {
 				// 当前利润  = 当前交易额度*当前利率
 				BigDecimal money = new BigDecimal(StrUtil.isBlank(retain3)?"0":retain3);//利润
 				BigDecimal decimal = dealAmount.add(actualAmount);//当前交易额度
-				BigDecimal re = new BigDecimal(retain1);//利率
+				BigDecimal re = new BigDecimal(StrUtil.isBlank(retain1)?"0":retain1);//利率
 				BigDecimal multiply = decimal.multiply(re);//当前交易利润
 				money = money.add(multiply);
 				log.info("------【码商交易利润计算完毕，当前分润码商："+first2.getUserId()+"，当前交易金额计算码商分润本次金额为："+multiply+"，当前码商总分润金额为："+money+"】-------");
