@@ -101,7 +101,7 @@
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from system_user_
+    from system_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -110,7 +110,7 @@
     </if>
   </select>
   <insert id="insert" parameterType="com.pay.gateway.entity.User" useGeneratedKeys="true" keyProperty="id" >
-    insert into system_user_ (userId, userName, userPassword, 
+    insert into system_user (userId, userName, userPassword, 
       userSalt, userMail, userPhone, 
       userQQ, userWechar, userType, 
       userAddress, userCity, createTime, 
@@ -130,7 +130,7 @@
       #{retain9,jdbcType=VARCHAR}, #{retain10,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pay.gateway.entity.User" useGeneratedKeys="true" keyProperty="id" >
-    insert into system_user_
+    insert into system_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         userId,
@@ -293,7 +293,7 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.pay.gateway.entity.UserExample" resultType="java.lang.Integer" >
-    select count(*) from system_user_
+    select count(*) from system_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -388,7 +388,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update system_user_
+    update system_user
     set id = #{record.id,jdbcType=INTEGER},
       userId = #{record.userId,jdbcType=VARCHAR},
       userName = #{record.userName,jdbcType=VARCHAR},

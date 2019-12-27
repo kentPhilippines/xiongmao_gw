@@ -48,6 +48,7 @@ public class NotifyUtil {
 		String cod = flag?"Y":"N";
 		String sign = appid + orderNo + amount + externalOrderId +cod+ secretKey;
 		sign =  md5(sign);
+		sign = sign.toUpperCase();
 		Map<String, Object> msg = new HashMap<String, Object>();
 		msg.put("appid", appid);
 		msg.put("orderNo", orderNo);

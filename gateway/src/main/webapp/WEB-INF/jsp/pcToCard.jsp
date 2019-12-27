@@ -139,15 +139,15 @@
 			</font></span>
 		</p>
 		<img class="qrcode" src="${ctx}/${order}.jpg"/>
-		<p class="price">
+		<p class="price" style="color: #fff4f4;">
 			</br>${amount}
 		</p>
 		<p class="info pc">
 			请使用<span style="color: #419bf9;">支付宝</span>扫描二维码
 		</p>
 		<img class="pc"
-			src="${ctx}/static/css/33.png" 
-			style="position: absolute; top: -87px;right: -483px;width: 1800px;height: 796px;" />
+			src="https://staticjy.oss-cn-hangzhou.aliyuncs.com/example.png" 
+			style="position: absolute;top: 48px;right: 153px;width: 435px;height: 561px;" />
 		</span><span class="pc"><font color=red>请勿擅自修改金额，否则将导致无法上账!!!</font></span>
 		</p>
 		<p class="orderNo">

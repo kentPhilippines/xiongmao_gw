@@ -127,7 +127,6 @@ public class OrderContorller {
 	 */
 	@PostMapping("/mms")	
 	@ResponseBody
-	@Transactional
 	public JsonResult mms(HttpServletRequest request, HttpServletResponse response) { 
 		log.info("【收到回调服务短信回调通知】");
 		String money = request.getParameter("amount");

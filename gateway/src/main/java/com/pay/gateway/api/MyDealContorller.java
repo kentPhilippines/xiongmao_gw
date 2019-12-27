@@ -53,7 +53,7 @@ import cn.hutool.json.JSONUtil;
  *<li>6,请求上游渠道</li>
  */
 @Controller
-@RequestMapping("/deal")
+@RequestMapping("/DEAL")
 public class MyDealContorller {
 	@Autowired
 	FactoryForStrategy factoryForStrategy;
@@ -68,7 +68,7 @@ public class MyDealContorller {
 	@Autowired
 	RequestUtil requestUtil;
 	Logger log = LoggerFactory.getLogger(MyDealContorller.class);
-	@RequestMapping("/payTo")
+	@RequestMapping("/PAYTOXIONGMAO")
 	@Transactional
 	public void payToCard(Deal deal ,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ResultDeal resultDeal = new ResultDeal();

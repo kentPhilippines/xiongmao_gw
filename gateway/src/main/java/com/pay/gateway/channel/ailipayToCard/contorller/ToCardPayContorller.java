@@ -39,11 +39,11 @@ import cn.hutool.http.HttpUtil;
 @Controller
 @RequestMapping("/api")
 public class ToCardPayContorller {
-	 Logger log = LoggerFactory.getLogger(ToCardPayContorller.class);
-	 @Value("${tomcat.imgpath.path}")
-	 private String imgpath;
+	Logger log = LoggerFactory.getLogger(ToCardPayContorller.class);
+	@Value("${tomcat.imgpath.path}")
+	private String imgpath;
 	@Autowired
-	 RedisUtil redisUtil;
+	RedisUtil redisUtil;
 	@Autowired
 	OrderService orderServiceImpl;
 	@Autowired
@@ -62,16 +62,14 @@ public class ToCardPayContorller {
 		Date date;
 		date = formatter.parse(data);
 		log.info("================【请求时间戳为："+data+"】===============");
-		/*boolean expired = DateUtil.isExpired(date,DateField.SECOND,300,new Date());//请求300秒过期
+		boolean expired = DateUtil.isExpired(date,DateField.SECOND,300,new Date());//请求300秒过期
 		if(!expired) {
 			log.info("================【订单过期】===============");
 			return "/orderEr";
 		}
-		*/
 		log.info("================【宝转卡简便模式】===============");
 		 String serverName = request.getServerName();
 		 int serverPort = request.getServerPort();
-		 
 		 log.info("================【页面展示：金额："+amount+"，订单号："+order+"】===============");
 		 String[] split = amount.split(",");
 		 amount = split[0];
@@ -84,7 +82,9 @@ public class ToCardPayContorller {
 			String dealCardId = findOrderByOrderAll.getDealCardId();
 			bankCard = bankCardServiceImpl.findBankCardByBankCardId(dealCardId);
 			bankCard.setDealAmount(findOrderByOrderAll.getDealAmount());
+			log.info("当前订单已生成，获取订单，订单号为："+findOrderByOrderAll.getOrderId());
 		}else {
+			log.info("开始生成交易订单");
 			bankCard = orderServiceImpl.createOrder(order,amount.toString());
 		}
 		lock.unlock();

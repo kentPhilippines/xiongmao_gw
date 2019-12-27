@@ -199,6 +199,6 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
-        <finalName>ROOT</finalName>
+        <finalName>haohui</finalName>
     </build>
 </project>

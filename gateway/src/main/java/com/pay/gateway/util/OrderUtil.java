@@ -48,6 +48,7 @@ public class OrderUtil {
 	 * <li>這慎重調用</li>
 	 * @param orderIdAll
 	 */
+	@Transactional
 	public synchronized boolean updataOrderStatus(String orderIdAll) {
 		return updataOrderStatus(orderIdAll,Common.RUN_STATUS_1);
 	}
@@ -60,7 +61,6 @@ public class OrderUtil {
 	 * @param runStatus					处理状态     自然处理   人工处理
 	 * @return
 	 */
-	@Transactional
 	public synchronized boolean updataOrderStatus(String orderIdAll,Integer runStatus) {
 		log.info("|---------【进入订单修改核心处理类，捕获全局订单编号："+orderIdAll+"】");
 		 //修改訂單狀態

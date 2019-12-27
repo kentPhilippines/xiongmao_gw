@@ -19,7 +19,7 @@ import cn.hutool.core.util.StrUtil;
 
 /**
  *	<p>交易订单操作类</p>
- * @author ADMIN
+ * @author K
  *
  */
 public abstract class PayOrderService implements PayService{
@@ -38,11 +38,6 @@ public abstract class PayOrderService implements PayService{
 	protected AccountFee accountFee;//商户手续费
 	protected String notfty;//订单回调地址
 	protected String accountFeeId;//費率id
-	
-	
-	
-	
-	
 	/**
 	 * <p>生成订单逻辑</p>
 	 * <li>1,</li>

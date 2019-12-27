@@ -40,25 +40,17 @@ public class SendUtil {
 	 * @throws Exception
 	 */
 	public Map<String ,Object > careteParam(Map<String,Object> map) throws Exception {
-		System.out.println("私钥:" + privateKey);
-        System.out.println("公钥:" + publicKey);
-        XRsa rsa = new XRsa(publicKey,privateKey);
 		String params = HttpUtil.toParams(map);
 		System.out.println("-----------------------【请求参数加密，请求参数："+params+"】");
-		String encryptData = rsa.publicEncrypt(params);
+		String encryptData = AES.Encrypt(params);
         System.out.println("加密后内容:" + encryptData);
-        String sign = rsa.sign(params);
         Map<String ,Object > parasMap = new HashMap<String,Object>();
         parasMap.put("MD5",encryptData);
-        parasMap.put("sign",sign);
 		return parasMap;
 	}
 	public Map<String ,Object > careteParam(String params) throws Exception {
-		System.out.println("私钥:" + privateKey);
-		System.out.println("公钥:" + publicKey);
-		XRsa rsa = new XRsa(publicKey,privateKey);
 		System.out.println("-----------------------【请求参数加密，请求参数："+params+"】");
-		String encryptData = rsa.publicEncrypt(params);
+		String encryptData =  AES.Encrypt(params);
 		System.out.println("加密后内容:" + encryptData);
 		Map<String ,Object > parasMap = new HashMap<String,Object>();
 		parasMap.put("MD5",encryptData);
@@ -73,13 +65,8 @@ public class SendUtil {
 	public HashMap<String, String> decryptionParam(HttpServletRequest request) throws Exception{
         XRsa rsa = new XRsa(publicKey,privateKey);
 		String MD5 = request.getParameter("MD5");//参数加密结果  这是要解密的值
-		String sign = request.getParameter("sign");// 这是 签名之后的值
-		String decryptData = rsa.privateDecrypt(MD5);
+		String decryptData =AES.Decrypt(MD5);
 		System.out.println("解密后内容:" + decryptData);
-		if(StrUtil.isNotBlank(sign)) {
-			boolean result = rsa.verify(decryptData,sign);
-			System.out.println("验签结果："+result);
-		}
         HashMap<String, String> decodeParamMap = HttpUtil.decodeParamMap(decryptData,"UTF-8");
 		return decodeParamMap;
 	}
