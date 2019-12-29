@@ -90,4 +90,12 @@ public interface OrderService {
 	 */
 	boolean updataOrderEr(String orderId);
 
+	/**
+	 * <p>将交易订单置为失败并写上失败消息</p>
+	 * @param orderId
+	 * @param msg
+	 * @return
+	 */
+	Boolean updataOrderByStatusAndMsg(String orderId, String msg);
+
 }

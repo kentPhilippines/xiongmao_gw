@@ -143,10 +143,12 @@ public class RequestUtil {
 		String notifyurl = request.getParameter("notifyurl");
 		String applydate = request.getParameter("applydate");
 		String amount = request.getParameter("amount");
-		String sign = "appid"+appid + "orderid"+orderid + "amount"+amount +"notifyurl"+notifyurl+ appDesKey;
+		String passcode = request.getParameter("passcode");
+		String sign = "appid"+appid + "orderid"+orderid +"notifyurl"+notifyurl+ "applydate"+applydate+"amount"+amount +"passcode"+passcode+ appDesKey;
 		String newA = sign.toUpperCase();
 		log.info("大写转换：" + newA);
 		sign =  md5(newA);
+		log.info("大写转换：" + sign);
 		newA = sign.toUpperCase();
 		log.info("|--------------【进入验签核心方法】----------------");
 		log.info("|--------------【我方验签结果："+newA+"，请求方签名结果："+rsasign+"】----------------");

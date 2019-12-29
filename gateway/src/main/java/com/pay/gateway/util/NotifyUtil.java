@@ -48,7 +48,7 @@ public class NotifyUtil {
 		String cod = flag?"Y":"N";
 		String sign = appid + orderNo + amount + externalOrderId +cod+ secretKey;
 		sign =  md5(sign);
-		sign = sign.toUpperCase();
+		sign = sign.toUpperCase();//全部转换为大写
 		Map<String, Object> msg = new HashMap<String, Object>();
 		msg.put("appid", appid);
 		msg.put("orderNo", orderNo);

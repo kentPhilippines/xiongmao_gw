@@ -13,8 +13,11 @@ import cn.hutool.setting.Setting;
  */
 @Component
 public class SettingFile {
+	public static final String LOCATION = "LOCATION";//当前项目路径
+	public static final String HAOFU_APPID = "HAOFU_APPID";//豪富APPId
+	public static final String HAOFU_DEAL_KEY = "HAOFU_DEAL_KEY";//豪富交易密钥
+	public static final String HAOFU_ALIPAY_H5 = "HAOFU_ALIPAY_H5";//豪富支付宝H5接口
 	private Setting setting = new Setting();
-
 	public Setting getSetting() {
 		return setting;
 	}

@@ -10,8 +10,10 @@ import com.pay.gateway.api.MyDealContorller;
 import com.pay.gateway.config.common.Common;
 import com.pay.gateway.entity.Account;
 import com.pay.gateway.entity.AccountFee;
+import com.pay.gateway.entity.BankCard;
 import com.pay.gateway.entity.DealOrder;
 import com.pay.gateway.entity.OrderAll;
+import com.pay.gateway.entity.dealEntity.ResultDeal;
 import com.pay.gateway.service.OrderService;
 import com.pay.gateway.util.DealNumber;
 
@@ -68,4 +70,43 @@ public abstract class PayOrderService implements PayService{
 		Boolean  falg = orderServiceImpl.addDealOrder(dealOrder);
 		return falg;
 	}
+	
+	/**
+	 * <p>创建订单</p>
+	 * @param orderAll			全局订单
+	 * @return
+	 */
+	public Boolean createOrder(OrderAll orderAll) {
+		 boolean createOrderNoBankCaed = orderServiceImpl.createOrderNoBankCaed(orderAll.getOrderId(), orderAll.getOrderAmount());
+		return createOrderNoBankCaed;
+	}
+	
+	/**
+	 * <p>查找订单，根据全局订单号</p>
+	 * @param orderAllId			全局订单号
+	 * @return
+	 */
+	public DealOrder findOrderByAllId(String orderAllId) {
+		DealOrder findOrderByOrderAll = orderServiceImpl.findOrderByOrderAll(orderAllId);
+		return findOrderByOrderAll;
+	}
+	
+	
+	/**
+	 * <p>订单置为失败，并说明原因</p>
+	 * @param orderId		失败订单号
+	 * @param msg			原因
+	 * @return
+	 */
+	public ResultDeal returnBean(String orderId,String msg) {
+		ResultDeal result = new ResultDeal();
+		result.setCod(Common.RESPONSE_STATUS_ER);
+		result.setMsg(Common.RESPONSE_STATUS_ER_MSG);
+		result.setRedirect("订单失败");
+		Boolean flag = orderServiceImpl.updataOrderByStatusAndMsg(orderId,msg);
+		log.info("订单修改成功");
+		return result;
+	}
+	
+	
 }

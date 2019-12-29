@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.pay.gateway.channel.H5ailiPay.service.BankCardService;
 import com.pay.gateway.channel.H5ailiPay.util.BankUtil;
 import com.pay.gateway.channel.futongzhifu.util.ConstantUtil;
+import com.pay.gateway.channel.futongzhifu.util.HtmlUtil;
 import com.pay.gateway.channel.futongzhifu.util.Md5Util;
 import com.pay.gateway.channel.futongzhifu.util.SignUtil;
 import com.pay.gateway.config.common.Common;
@@ -30,8 +31,8 @@ import com.pay.gateway.service.OrderService;
 import com.pay.gateway.util.SendUtil;
 import com.pay.gateway.util.SettingFile;
 @Component("futongzhifuAlipayScan")
-public class payService extends PayOrderService{
-	Logger log = LoggerFactory.getLogger(payService.class);
+public class PayService extends PayOrderService{
+	Logger log = LoggerFactory.getLogger(PayService.class);
 	@Autowired
 	BankCardService bankCardServiceImpl;
 	@Autowired
@@ -47,8 +48,7 @@ public class payService extends PayOrderService{
 	public ResultDeal deal(Deal deal, Account account, AccountFee accountFee, OrderAll orderAll) {	
 		log.info("===========【进入富通支付支付业务处理类】======");
 	ResultDeal result = new ResultDeal();
-	String dealAmount = orderAll.getOrderAmount();//用户提交金额
-	boolean flag = orderServiceImpl.createOrderNoBankCaed(orderAll.getOrderId(),dealAmount);
+	boolean flag = createOrder(orderAll);
 	DealOrder order = null;	
 	if(flag) {
 		log.info("【富通支付，支付宝扫码模式交易订单创建成功】");
@@ -62,6 +62,7 @@ public class payService extends PayOrderService{
 	return Post(order);
 	}
 	private ResultDeal Post(DealOrder order) {
+		ResultDeal result = new ResultDeal();
 		log.info("");
 	/*	商户编号	 		merAccount 		是 		String(32)			由富通支付提供，默认为:商户号(由富通 支付提供的9位正整数)，用于富通支付 判别请求方的身份
 		商户订单号	 		merOrderId 		是 		String(32)			商户订单号，32个字符内、只允许使用 数字、字母，确保在商户系统唯一
@@ -70,14 +71,14 @@ public class payService extends PayOrderService{
 		支付类型编码		payType 		是 		String(10)			见附录7.1.1支付类型，如： payType=quick
 		银行编码			bankCode 		否 		String(14)			见附录7.2.1借记卡网银编码列表，如： bankCode=ICBC，网银支付时必填
 		银行类型 			cardType 		否 		String(256)			固定选项值：debit-card(借记卡) credit-card(信用卡) 目前暂不支持信用卡支付
-支付成功后客户端浏览器回调地址	pageUrl 		是 		String(256)			客户端浏览器回调地址，支付成功后， 将附带回调数据跳转到此页面，商户可 以进行相关处理并显示给终端用户
+支付成功后客户端浏览器回调地址	pageUrl 	是 		String(256)			客户端浏览器回调地址，支付成功后， 将附带回调数据跳转到此页面，商户可 以进行相关处理并显示给终端用户
 服务端支付成 功通知地址		backUrl 		是 		String(256)			支付成功后，富通支付将发送“支付成 功”信息至该地址，商户收到信息后， 需返回相应信息至富通支付，表明已收 到通知。返回信息只能定义为 “success”（注意为小写英文字母）， 返回其他信息均为失败
 		商品名称 			subject 		否 		String(56)			商品名称，如：subject=商品XX 特殊情况下，如需提前传入银行卡号， 可用此字段，如：subject=6216XXXX
 		商品单价 			price 			否		String(20)			
 		购买数量 			quantity 		否 		String(20)
-		买家IP地址 		clientIp 		否 		String(20) 			防钓鱼用，买家的ip地址
+		买家IP地址 		clientIp 			否 		String(20) 			防钓鱼用，买家的ip地址
 		签名类型 			signType 		是 		String(10)			 签名类型，固定：MD5 （不参与签名）
-		签名串			sign 			是 		String(1024) 		签名结果 （不参与签名）
+		签名串			sign 				是 		String(1024) 		签名结果 （不参与签名）
 */
 		/*
 		 * 	支付类型
@@ -121,6 +122,11 @@ public class payService extends PayOrderService{
         String sign = Md5Util.MD5Encode(signStr, ConstantUtil.PAY_KEY);
         map.put("signType", signType);
         map.put("sign", sign);
+        String form = HtmlUtil.map2From(ConstantUtil.PAY_URL, map);
+        
+        
+        
+        
 		return null;
 	}
 

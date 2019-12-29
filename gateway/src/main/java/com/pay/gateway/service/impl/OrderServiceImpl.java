@@ -239,4 +239,17 @@ public class OrderServiceImpl extends PayOrderService implements OrderService  {
 		int updateByExampleSelective = dealOrderDao.updateByExampleSelective(dealOrder, example);
 		return updateByExampleSelective > 0 && updateByExampleSelective < 2;
 	}
+	@Override
+	public Boolean updataOrderByStatusAndMsg(String orderId, String msg) {
+		DealOrder record = new DealOrder();
+		DealOrderExample example = new DealOrderExample();
+		com.pay.gateway.entity.DealOrderExample.Criteria criteriaDealOrder = example.createCriteria();
+		criteriaDealOrder.andOrderIdEqualTo(orderId);
+		DealOrder dealOrder = new DealOrder();
+		dealOrder.setOrderStatus(Common.ORDERDEASTATUS_ER);
+		dealOrder.setDealDescribe(msg);
+		dealOrder.setCreateTime(null);
+		int updateByExampleSelective = dealOrderDao.updateByExampleSelective(dealOrder, example);
+		return updateByExampleSelective > 0 && updateByExampleSelective < 2;
+	}
 }
