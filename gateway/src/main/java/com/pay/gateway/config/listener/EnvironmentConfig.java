@@ -22,7 +22,7 @@ public class EnvironmentConfig implements EnvironmentAware{
 		log.info("操作系统的构架：" + environment.getProperty("os.arch"));
 		log.info("操作系统的版本：" + environment.getProperty("os.version"));
 		// 获取配置信息
-		Setting setting = new Setting(FileUtil.touch("/newwork/GW/kent.setting") , null, true);
+		Setting setting = new Setting(FileUtil.touch("/config/GW/gateway.setting") , null, true);
 		settingFile.setSetting(setting);
 		String settingPath = setting.getSettingPath();
 		log.info("-------->>配置文件加载-----"+settingPath+"");	

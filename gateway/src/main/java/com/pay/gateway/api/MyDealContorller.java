@@ -90,6 +90,18 @@ public class MyDealContorller {
 			response.getWriter().write(JSONUtil.toJsonPrettyStr(resultDeal));
 			return;
 		}
+		if(orderid.length()>64) {
+			resultDeal.setCod(Common.COD_15035);
+			resultDeal.setMsg(Common.MSG_15035);
+			response.getWriter().write(JSONUtil.toJsonPrettyStr(resultDeal));
+			return;
+		}
+		if(notifyurl.length() > 96) {
+			resultDeal.setCod(Common.COD_15035);
+			resultDeal.setMsg(Common.MSG_15035);
+			response.getWriter().write(JSONUtil.toJsonPrettyStr(resultDeal));
+			return;
+		}	
 		Account account = accountServiceImpl.findAccountByAppId(appid);
 		OrderAll order = orderServiceImpl.findOrderByTradeId(appid,orderid);
 		if(ObjectUtil.isNotNull(order)) {

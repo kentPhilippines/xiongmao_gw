@@ -142,12 +142,13 @@ public final class Common {
 	 */
 	public static final Integer DAY_ALL_NOTWORK = 1;//非工作日
 	
+
 	
 	
 	
 	
-	
-	
+	public static final String COD_15035 = "15035";//参数长度过长
+	public static final String MSG_15035 = "参数长度过长";//参数长度过长
 	public static final String COD_15034 = "15034";//必传参数为空
 	public static final String MSG_15034 = "必传参数为空";//必传参数为空
 	public static final String COD_14006 = "14006";//必传参数为空
