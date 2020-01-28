@@ -80,7 +80,7 @@ public class MyDealContorller {
 		String orderid = request.getParameter("orderid");
 		String notifyurl = request.getParameter("notifyurl");
 		String passcode = request.getParameter("passcode");
-		String callbackurl = request.getParameter("callbackurl");
+		String pageUrl = request.getParameter("pageUrl");
 		String amount1 = request.getParameter("amount");
 		log.info("-------------【请求参数：appid："+appid+"，orderid："+orderid+"，notifyurl："+notifyurl+"，passcode："+passcode+"，amount："+amount1+"】------------------------------");
 		if(StrUtil.isBlank(appid) || StrUtil.isBlank(orderid) ||StrUtil.isBlank(notifyurl) ||StrUtil.isBlank(passcode)  || StrUtil.isBlank(amount1)) {
@@ -172,7 +172,7 @@ public class MyDealContorller {
 			orderAll.setRetain1(orderid);
 			orderAll.setRetain2(accountFee.getId().toString());
 			orderAll.setRetain3(notifyurl);//回调
-			orderAll.setRetain4(accountFee.getId().toString());
+			orderAll.setRetain4(pageUrl);
 			Boolean flag = orderServiceImpl.addOrderAll(orderAll);
 			if(!flag) {
 				log.info("------------------------------【14005:全局订单生成异常】------------------------------");

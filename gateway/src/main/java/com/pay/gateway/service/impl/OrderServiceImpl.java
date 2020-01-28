@@ -225,6 +225,7 @@ public class OrderServiceImpl extends PayOrderService implements OrderService  {
 		this.notfty = orderAll.getRetain3();
 		this.accountFeeId = orderAll.getRetain4();
 		this.payType = accountFee.getChannelProduct();
+		this.pageUrl = orderAll.getRetain4();
 		return dealOrder();
 	}
 	@Override

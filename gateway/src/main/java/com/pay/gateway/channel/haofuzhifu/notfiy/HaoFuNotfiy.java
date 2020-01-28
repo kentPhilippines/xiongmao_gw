@@ -114,22 +114,11 @@ public class HaoFuNotfiy {
 			} catch (IOException e) {
 				log.info("【异步通知：返回豪富success状态失败】");
 			}
-			DealOrder orderId = orderServiceImpl.findOrderByOrderId(orderid);
-			String orderAll = orderId.getAssociatedId();
-			boolean updataOrder = orderUtil.updataOrder(orderAll);
-			if(updataOrder) {
-				log.info("【订单状态和账户资金修改成功，全局订单号："+orderAll+"，现在开始发送通知】");
-				notifyUtil.sendMsg(orderAll,updataOrder);
-			}else {
-				log.info("【订单状态和账户资金修改失败，全局订单号："+orderAll+"，现在开始发送通知】");
-				notifyUtil.sendMsg(orderAll,updataOrder);
-			}
+			orderUtil.orderSu(orderid);
 			return;
 		}
 		log.info("【交易失败】");
-		DealOrder orderId = orderServiceImpl.findOrderByOrderId(orderid);
-		boolean flag = orderServiceImpl.updataOrderEr(orderId.getOrderId());
-		notifyUtil.sendMsg(orderId.getAssociatedId(),false);
+		orderUtil.orderEr(orderid);
 		return;
 	}
 }

@@ -40,6 +40,7 @@ public abstract class PayOrderService implements PayService{
 	protected AccountFee accountFee;//商户手续费
 	protected String notfty;//订单回调地址
 	protected String accountFeeId;//費率id
+	protected String pageUrl;//支付成功跳转地址
 	/**
 	 * <p>生成订单逻辑</p>
 	 * <li>1,</li>
@@ -62,6 +63,7 @@ public abstract class PayOrderService implements PayService{
 		dealOrder.setOrderGenerationIp(orderGenerationIp);
 		dealOrder.setRetain2(accountFeeId);
 		dealOrder.setRetain4(payType);
+		dealOrder.setRetain5(pageUrl);
 		if(StrUtil.isNotBlank(dealCardId))//只有使用自己渠道的时候该值才存在
 			dealOrder.setDealCardId(dealCardId);
 		dealOrder.setDealChannel(dealChannel);

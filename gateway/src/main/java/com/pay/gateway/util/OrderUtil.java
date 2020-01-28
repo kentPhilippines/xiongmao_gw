@@ -41,6 +41,8 @@ public class OrderUtil {
 	AccountFeeService accountFeeServiceImpl;
 	@Autowired
 	BankCardService BankCardServiceImpl;
+	@Autowired
+	NotifyUtil notifyUtil;
 	Logger log = LoggerFactory.getLogger(OrderUtil.class);
 	/**
 	 * <p>根据全局订单号修改相应的流水和账变记录</p>
@@ -278,6 +280,26 @@ public class OrderUtil {
 		return updataOrder(orderIdAll,Common.RUN_STATUS_1);
 	}
 	
-	
-
+	/**
+	 * <p>四方回调成功</p>
+	 * @param orderid
+	 */
+	public void orderSu(String orderid) {
+		DealOrder orderId = orderServiceImpl.findOrderByOrderId(orderid);
+		String orderAll = orderId.getAssociatedId();
+		boolean updataOrder =  updataOrder(orderAll);
+		if(updataOrder) {
+			log.info("【订单状态和账户资金修改成功，全局订单号："+orderAll+"，现在开始发送通知】");
+			notifyUtil.sendMsg(orderAll,updataOrder);
+		}else {
+			log.info("【订单状态和账户资金修改失败，全局订单号："+orderAll+"，现在开始发送通知】");
+			notifyUtil.sendMsg(orderAll,updataOrder);
+		}
+	}
+	public void orderEr(String orderid) {
+		log.info("【交易失败】");
+		DealOrder orderId = orderServiceImpl.findOrderByOrderId(orderid);
+		boolean flag = orderServiceImpl.updataOrderEr(orderId.getOrderId());
+		notifyUtil.sendMsg(orderId.getAssociatedId(),false);
+	}
 }
