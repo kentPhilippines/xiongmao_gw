@@ -35,7 +35,7 @@ public class PayAlipayH5Service extends PayOrderService{
 		DealOrder order = null;	
 		if(flag) {
 			order = findOrderByAllId(orderAll.getOrderId());
-			log.info("【红星支付，支付宝扫码模式交易订单创建成功，交易订单号："+order.getOrderId()+"】");
+			log.info("【红星支付，支付宝H5模式交易订单创建成功，交易订单号："+order.getOrderId()+"】");
 		}else {
 			result.setCod(Common.RESPONSE_STATUS_ER);
 			result.setMsg(Common.RESPONSE_STATUS_ER_MSG);
@@ -66,11 +66,12 @@ public class PayAlipayH5Service extends PayOrderService{
 		map.put("apporderid", apporderid);
 		map.put("orderbody",orderbody);
 		map.put("orderdesc",orderbody);
-		map.put("amount",amount);
+		map.put("amount",Double.valueOf(amount).intValue()+"");
 		map.put("front_skip_url",order.getRetain5());
 		map.put("notifyurl",notifyurl);
 		String hongXinResult = HongXinUtil.invoke(map, url, key);
-		if(!hongXinResult.contains("<html") || !hongXinResult.contains("<meta")  ) //成功跳转
+		log.info("红星支付宝H5上游返回："+hongXinResult);
+		if(!hongXinResult.contains("<html") || !hongXinResult.contains("<meta")) //成功跳转
 			return returnBean(apporderid, "订单状态失败,上游返回失败");
 		result.setCod(Common.RESPONSE_STATUS_SU);
 		result.setReturnUrl(hongXinResult);

@@ -46,9 +46,9 @@ public final class Common {
 	 */
 	public static final Integer ORDERDEASTATUS_T = 1;//交易订单 处理中
 	public static final Integer ORDERDEASTATUS_SU = 2;//交易订单 成功
-	public static final Integer ORDERDEASTATUS_ER = 3;//交易订单 失败
+	public static final Integer ORDERDEASTATUS_ER = 4;//交易订单 失败
 	
-	
+	//1处理中2成功3未收到回调4失败
 	/**
 	 * <p>响应状态码</p>
 	 */

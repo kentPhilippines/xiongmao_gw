@@ -33,9 +33,8 @@ public class HongXinUtil {
 	}
 	public static String createParam(Map<String, String> map, String appInitKey) {
 		try {
-			if (map == null || map.isEmpty()) {
+			if (map == null || map.isEmpty()) 
 				return null;
-			}
 			//对参数名按照ASCII升序排序
 			Object[] key = map.keySet().toArray();
 			Arrays.sort(key);

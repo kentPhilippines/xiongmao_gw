@@ -20,7 +20,7 @@ public class Test {
 		String cmd = "PAYH5ALIPAY";
 		String appid = "30060";
 		String userid = "CAT202001241103480002";
-		String apporderid = "as1d2@sa2s3212521";
+		String apporderid = "as1d2@sa2s3224312521";
 		String orderbody = "虹付支付";
 		String notifyurl = "www.baidu.com";
 		String amount ="200.00";

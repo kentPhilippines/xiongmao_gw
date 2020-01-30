@@ -25,8 +25,6 @@ public class DealContorller {
 	@Autowired
 	OrderService orderServiceImpl;
 	@Autowired
-	H5aliPayService H5aliPayServiceImpl;
-	@Autowired
 	RequestUtil requestUtil;
 	Logger log = LoggerFactory.getLogger(DealContorller.class);
 	

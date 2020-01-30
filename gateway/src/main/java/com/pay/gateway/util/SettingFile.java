@@ -25,6 +25,7 @@ public class SettingFile {
 	public static final String CHANNEL_HONGXING_USERID = "CHANNEL_HONGXING_USERID";//红星支付 用户号
 	public static final String CHANNEL_HONGXING_KEY = "CHANNEL_HONGXING_KEY";//交易密钥
 	public static final String CHANNEL_HONGXING_DESKEY = "CHANNEL_HONGXING_DESKEY";//交易解密密钥
+	public static final String CHANNEL_HONGXING_WECHAR_H5_URL = "CHANNEL_HONGXING_WECHAR_H5_URL";//红星支付微信H5 接口
 	
 	private Setting setting = new Setting();
 	public Setting getSetting() {

@@ -20,6 +20,12 @@ public class test {
         BigDecimal b2 = new BigDecimal("28.00");  
         System.out.println("小数格式化：" + df.format(b1));  
         System.out.println("整数格式化：" + df.format(b2));  
+        
+        String aa = "600.00";
+        Integer valueOf = Double.valueOf(aa).intValue();
+        System.out.println(valueOf);
+        
+        
 	}
 
 }

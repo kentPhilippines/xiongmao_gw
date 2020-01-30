@@ -10,10 +10,10 @@ public class TestH5 {
 	public static void main(String[] args) {
 		String url = "http://ycpay.kuaima888.cn:18000/GW/PayH5Ali.do";
 		String version = "2.0";
-		String cmd = "PAYH5ALIPAY";
+		String cmd = "PAYH5WECHAT";
 		String appid = "30060";
 		String userid = "CAT202001241103480002";
-		String apporderid = "asd2@sa2s32223412521";
+		String apporderid = "asd2@sa2ssss32223412521";
 		String orderbody = "虹付支付";
 		String notifyurl = "www.baidu.com";
 		String amount ="200.00";

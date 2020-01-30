@@ -77,8 +77,9 @@ public class PayAlipayScanService extends PayOrderService{
 	    map.put("userid",userid); 
 		map.put("apporderid", apporderid);
 		map.put("orderbody",orderbody);
-		map.put("amount",amount);
+		map.put("amount",Double.valueOf(amount).intValue()+"");
 		map.put("notifyurl",notifyurl);
+		map.put("custip",settingFile.getName(SettingFile.LOCATION));
 		String hongXinResult = HongXinUtil.invoke(map, url, key);
 		HashMap<String, String> decodeParamMap = HttpUtil.decodeParamMap(hongXinResult,"UTF-8");
 		String code = decodeParamMap.get("errcode");
