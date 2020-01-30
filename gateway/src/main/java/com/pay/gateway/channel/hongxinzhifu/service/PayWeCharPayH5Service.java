@@ -3,6 +3,7 @@ package com.pay.gateway.channel.hongxinzhifu.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -20,6 +21,8 @@ import com.pay.gateway.entity.OrderAll;
 import com.pay.gateway.entity.dealEntity.Deal;
 import com.pay.gateway.entity.dealEntity.ResultDeal;
 import com.pay.gateway.util.SettingFile;
+
+import cn.hutool.http.HttpUtil;
 @Component("HongXinWeCharH5")
 public class PayWeCharPayH5Service extends PayOrderService{
 		Logger log = LoggerFactory.getLogger(PayAlipayScanService.class);
@@ -70,12 +73,13 @@ public class PayWeCharPayH5Service extends PayOrderService{
 		map.put("amount",Double.valueOf(amount).intValue()+"");
 		map.put("front_skip_url",order.getRetain5());
 		map.put("notifyurl",notifyurl);
-		String hongXinResult = HongXinUtil.invoke(map, url, key);
-		log.info("红星微信H5上游返回："+hongXinResult);
-		if(!hongXinResult.contains("<html") || !hongXinResult.contains("<meta")) //成功跳转
-			return returnBean(apporderid, "订单状态失败,上游返回失败");
+		map.put("pageurl",order.getRetain5());
+		String createParam = HongXinUtil.createParam(map, key);
+		Map<String, List<String>> decodeParams = HttpUtil.decodeParams(createParam, "UTF-8");
+		StringBuffer from = getFrom(decodeParams, url);
+		log.info("H5表单请求参数："+from);
 		result.setCod(Common.RESPONSE_STATUS_SU);
-		result.setReturnUrl(hongXinResult);
+		result.setReturnUrl(from.toString());
 		result.setOpenType(Common.OPENTYPE_HTML);
 		return result;
 	}

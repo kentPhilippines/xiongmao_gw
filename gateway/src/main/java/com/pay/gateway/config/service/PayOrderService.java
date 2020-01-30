@@ -1,6 +1,9 @@
 package com.pay.gateway.config.service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import com.pay.gateway.entity.dealEntity.ResultDeal;
 import com.pay.gateway.service.OrderService;
 import com.pay.gateway.util.DealNumber;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 
 /**
@@ -109,6 +113,40 @@ public abstract class PayOrderService implements PayService{
 		log.info("订单修改成功");
 		return result;
 	}
+	/**
+	 * <p>H5接口提交返回抽象类</p>
+	 * @param decodeParams
+	 * @param url
+	 * @return
+	 */
+	public StringBuffer getFrom(Map<String, List<String>> decodeParams,String url) {
+		Set<String> keySet = decodeParams.keySet();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">")
+		.append("<html>")
+		.append("<head>")
+		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">")
+		.append("</head>")
+		.append("<body>")
+		.append("<form action=\""+url+"\" id=\"from\" method=\"post\" >");
+		for(String key : keySet) {
+			List<String> list = decodeParams.get(key);
+			String first = CollUtil.getFirst(list);
+			buffer.append(" <input type=\"text\" name=\""+key+"\" value=\""+first+"\">");
+		}
+		buffer.append(" <button type=\"submit\">提交</button>")
+		.append("</form>")
+		.append("</body>")
+		.append("</html>")
+		.append("<script language=javascript>")
+		.append("window.onload= function(){\r\n" + 
+				"document.getElementById('from').submit();\r\n" + 
+				"}")
+		.append("</script>");
+		return buffer;
+	}
+	
+	
 	
 	
 }
