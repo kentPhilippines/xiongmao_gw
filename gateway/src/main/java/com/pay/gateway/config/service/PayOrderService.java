@@ -132,9 +132,9 @@ public abstract class PayOrderService implements PayService{
 		for(String key : keySet) {
 			List<String> list = decodeParams.get(key);
 			String first = CollUtil.getFirst(list);
-			buffer.append(" <input type=\"text\" name=\""+key+"\" value=\""+first+"\">");
+			buffer.append("<input type=\"text\" name=\""+key+"\" value=\""+first+"\">");
 		}
-		buffer.append(" <button type=\"submit\">提交</button>")
+		buffer.append("<button type=\"submit\">提交</button>")
 		.append("</form>")
 		.append("</body>")
 		.append("</html>")

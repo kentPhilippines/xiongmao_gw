@@ -61,13 +61,11 @@ public class OrderContorller {
 		}
 		String orderId = decryptionParam.get("orderId");
 		log.info("|----收到后台向网关调用网关向用户发送通知的方法，订单号为："+orderId);
-		if(StrUtil.isBlank(orderId)) {
+		if(StrUtil.isBlank(orderId)) 
 			return JsonResult.buildFailResult("订单号为空");
-		}
 		DealOrder dealOrder = orderServiceImpl.findOrderByOrderId(orderId);
-		if(ObjectUtil.isNull(dealOrder)) {
+		if(ObjectUtil.isNull(dealOrder)) 
 			return JsonResult.buildFailResult("服务器内未查询到有效订单");
-		}
 		Integer orderStatus = dealOrder.getOrderStatus();
 		if(Common.ORDERDEASTATUS_SU.equals(orderStatus)) {//成功的时候
 			notifyUtil.sendMsg(dealOrder.getAssociatedId(), true);
@@ -83,7 +81,6 @@ public class OrderContorller {
 	 */
 	@PostMapping("/updataOrder")	
 	@ResponseBody
-	@Transactional
 	public JsonResult updataOrder(HttpServletRequest request, HttpServletResponse response) {
 		HashMap<String, String> decryptionParam = null;
 		StringBuffer requestURL = request.getRequestURL();
@@ -97,20 +94,17 @@ public class OrderContorller {
 		}
 		String orderId = decryptionParam.get("orderId");
 		log.info("|----收到后台向网关调用网关将订单置为成功的方法并向下游用户重新发送通知，订单号为："+orderId);
-		if(StrUtil.isBlank(orderId)) {
+		if(StrUtil.isBlank(orderId)) 
 			return JsonResult.buildFailResult("订单号为空");
-		}
 		DealOrder dealOrder = orderServiceImpl.findOrderByOrderId(orderId);
-		if(ObjectUtil.isNull(dealOrder)) {
+		if(ObjectUtil.isNull(dealOrder)) 
 			return JsonResult.buildFailResult("服务器内未查询到有效订单");
-		}
-		boolean updataOrderStatus = orderUtil.updataOrderStatus(dealOrder.getAssociatedId(),Common.RUN_STATUS_2);
+		boolean updataOrderStatus = orderUtil.updataOrder(dealOrder.getAssociatedId(),Common.RUN_STATUS_2);
 		log.info("|-----------接收到后台请求修改订单结果："+updataOrderStatus);
 		notifyUtil.sendMsg(dealOrder.getAssociatedId(), updataOrderStatus);
 		log.info("|-----------接收到后台请求修改订单结果："+updataOrderStatus);
-		if(updataOrderStatus) {
+		if(updataOrderStatus) 
 			return JsonResult.buildSuccessMessage("订单修改成功,并向用户发送通知");
-		}
 		if(!updataOrderStatus)//回滚所有数据
 			 throw new OtherErrors("交易回调发生异常");
 		return JsonResult.buildFailResult("修改失败");

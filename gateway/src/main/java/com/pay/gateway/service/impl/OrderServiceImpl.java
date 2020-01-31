@@ -222,10 +222,10 @@ public class OrderServiceImpl extends PayOrderService implements OrderService  {
 		this.orderGenerationIp = orderAll.getOrderIp();
 		this.orderAll = orderAll;
 		this.accountFee = accountFee ;
-		this.notfty = orderAll.getRetain3();
-		this.accountFeeId = orderAll.getRetain4();
+		this.notfty = orderAll.getRetain3();//异步回调
+		this.accountFeeId = orderAll.getRetain2();
 		this.payType = accountFee.getChannelProduct();
-		this.pageUrl = orderAll.getRetain4();
+		this.pageUrl = orderAll.getRetain4();//同步返回
 		return dealOrder();
 	}
 	@Override
